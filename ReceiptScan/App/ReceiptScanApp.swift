@@ -3,9 +3,16 @@ import SwiftUI
 
 @main
 struct ReceiptScanApp: App {
+    
+    var loggedIn: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            if loggedIn {
+                MainTabView()
+            } else {
+                StoryboardViewController()
+            }
         }
     }
 }
