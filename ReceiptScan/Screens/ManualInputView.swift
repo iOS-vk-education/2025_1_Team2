@@ -21,9 +21,9 @@ struct ManualInputView: View {
                         
                         Spacer()
                         
-                        Image(systemName: "person.circle")
+                        Image("cheburashka")
                             .resizable()
-                            .frame(width: 30, height: 30)
+                            .frame(width: 45, height: 45)
                             .foregroundColor(.primary)
                             .padding(.horizontal)
                         
