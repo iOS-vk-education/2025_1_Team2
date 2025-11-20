@@ -22,7 +22,7 @@ struct MainTabView: View {
                     Image(systemName: "text.viewfinder")
                 }
             
-            CalendarView()
+            CalendaryView()
                 .tag(3)
                 .tabItem {
                     Image(systemName: "calendar")

@@ -25,7 +25,7 @@ struct SettingsView: View {
                             .resizable()
                             .frame(width: 30, height: 30)
                             .foregroundColor(.primary)
-                            .padding(.horizontal)
+                            .padding(.horizontal, 20)
                     }
                 }
                 .alert("Измените имя пользователя", isPresented: $isEditingUsername) {
@@ -61,12 +61,13 @@ struct SettingsView: View {
                     Text("Изменить фото")
                     Spacer()
                 }
+                .frame(height: 40)
                 .background(RoundedRectangle(cornerRadius: 20)
                     .fill(Color.white))
                 .padding(20)
                 ZStack {
-                    Color.primary
-                        .frame(height: 155)
+                    Color(hex: "0D0B20")
+                        .frame(height: 140)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     VStack {
                         HStack {
@@ -79,14 +80,14 @@ struct SettingsView: View {
                         ZStack {
                             
                             Color.white
-                                .frame(height: 125)
+                                .frame(height: 110)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
                             
                             VStack {
                                 HStack {
                                     Image(systemName: "moon")
                                         .resizable()
-                                        .frame(width: 30, height: 30)
+                                        .frame(width: 25, height: 25)
                                         .foregroundColor(.black)
                                         .padding(.horizontal)
                                     Text("Темная тема")
@@ -102,7 +103,7 @@ struct SettingsView: View {
                                 HStack {
                                     Image(systemName: "bell")
                                         .resizable()
-                                        .frame(width: 30, height: 30)
+                                        .frame(width: 25, height: 25)
                                         .foregroundColor(.black)
                                         .padding(.horizontal)
                                     Text("Уведомления")
@@ -121,12 +122,12 @@ struct SettingsView: View {
                 }
                 .padding(.horizontal, 20)
                 ZStack {
-                    Color.black
-                        .frame(height: 90)
+                    Color(hex: "0D0B20")
+                        .frame(height: 110)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     VStack {
                         HStack {
-                            Text("Основые настройки")
+                            Text("Сброс данных")
                                 .foregroundColor(.white)
                             Spacer()
                         }
@@ -135,22 +136,23 @@ struct SettingsView: View {
                         ZStack {
                             
                             Color.white
-                                .frame(height: 60)
+                                .frame(height: 80)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
                             
                             Button {
                                 isAlertPresented = true
                             } label: {
                                   Text("Удалить данные")
-                                      .font(.title3)
+                                      .font(.title2)
                                       .foregroundColor(.white)
-                                      .padding(10)
+                                      .frame(width: 300)
+                                      .padding(12)
                                       .background(Color.indigo)
-                                      .clipShape(RoundedRectangle(cornerRadius: 20))
+                                      .clipShape(RoundedRectangle(cornerRadius: 250))
 
 
                             }
-                            .alert("Вы уверены?", isPresented: $isAlertPresented, actions: {
+                            .alert("Все чеки будут удалены. Восстановить их будет невозможно. Продолжить?", isPresented: $isAlertPresented, actions: {
                                 Button("Да", role: .destructive) {
                                     print("удалено")
                                 }
@@ -166,13 +168,14 @@ struct SettingsView: View {
                 }
                 .padding(.horizontal, 20)
                 ZStack {
-                    Color.black
+                    Color(hex: "0D0B20")
                         .frame(height: 125)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     VStack {
                         HStack {
                             Text("Информация")
                                 .foregroundColor(.white)
+                                .padding(1)
                             Spacer()
                         }
                         .padding(.horizontal)
@@ -187,9 +190,11 @@ struct SettingsView: View {
                                 HStack {
                                     Text("Версия")
                                         .foregroundColor(.black)
+                                        .font(.body)
                                     Spacer()
                                     Text("1.0.0")
                                         .foregroundColor(.black)
+                                        .font(.body)
                                 }
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 7)
@@ -197,9 +202,11 @@ struct SettingsView: View {
                                 HStack {
                                     Text("Последнее обновление")
                                         .foregroundColor(.black)
+                                        .font(.body)
                                     Spacer()
                                     Text("Нояб 2025")
                                         .foregroundColor(.black)
+                                        .font(.body)
                                 }
                                 .padding(.horizontal, 20)
                             }
