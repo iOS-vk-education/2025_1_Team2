@@ -19,7 +19,7 @@ struct ScannerView: View {
                                 .font(.headline)
                         )
                     CornerBrackets()
-                        .stroke(Color.blue, lineWidth: 3)
+                        .stroke(.indigo, lineWidth: 3)
                         .frame(width: 350, height: 580)
                 }
                 .padding(.horizontal, 20)
