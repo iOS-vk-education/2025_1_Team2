@@ -2,7 +2,6 @@ import UIKit
 import SwiftUI
 
 class ViewController: UIViewController {
-
     
     @IBOutlet weak var whiteFrame: UIView!
     @IBOutlet weak var authLabel: UILabel!
@@ -21,7 +20,7 @@ class ViewController: UIViewController {
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor.white.cgColor, UIColor.systemIndigo.cgColor]
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor(hex: "7290F3").cgColor]
         view.layer.insertSublayer(gradientLayer, at: 0)
         
         whiteFrame.layer.cornerRadius = 30
@@ -40,13 +39,9 @@ class ViewController: UIViewController {
         
         logInButton.backgroundColor = .black
         logInButton.setTitleColor(.white, for: .normal)
-
-        
-        
-        
+      
     }
 
-    
     @IBAction func didTabLogIn(_ sender: Any) {
         let mainTabView = MainTabView()
         let hostingController = UIHostingController(rootView: mainTabView)
@@ -55,9 +50,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTabSignUp(_ sender: Any) {
-        debugPrint("Регистрация")
-    }
-    
-    
+        let registrationVC = RegistrationViewController()
+        registrationVC.modalPresentationStyle = .fullScreen
+        present(registrationVC, animated: true)
+    }    
 }
 

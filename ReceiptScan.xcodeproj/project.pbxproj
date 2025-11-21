@@ -10,9 +10,33 @@
 		C3A204572ECB655400189FF9 /* ReceiptScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReceiptScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CB712F8D2ED0764D006B44C7 /* Exceptions for "ReceiptScan" folder in "ReceiptScan" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Auth/Registration/UIKitIntergation.swift,
+			);
+			target = C3A204562ECB655400189FF9 /* ReceiptScan */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		CB712F8E2ED0764D006B44C7 /* Exceptions for "ReceiptScan" folder in "Copy Bundle Resources" phase from "ReceiptScan" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = C3A204552ECB655400189FF9 /* Resources */;
+			membershipExceptions = (
+				Auth/Registration/UIKitIntergation.swift,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C3A204592ECB655400189FF9 /* ReceiptScan */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CB712F8D2ED0764D006B44C7 /* Exceptions for "ReceiptScan" folder in "ReceiptScan" target */,
+				CB712F8E2ED0764D006B44C7 /* Exceptions for "ReceiptScan" folder in "Copy Bundle Resources" phase from "ReceiptScan" target */,
+			);
 			path = ReceiptScan;
 			sourceTree = "<group>";
 		};
