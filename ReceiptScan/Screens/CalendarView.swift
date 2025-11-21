@@ -67,13 +67,13 @@ struct CalendaryView: View {
                                 NavigationLink {
                                     DataInfoView()
                                 } label: {
-                                    HStack(spacing: 30) {
+                                    HStack(spacing: 70) {
                                         Text("Посмотреть чеки")
                                         Image(systemName: "arrowshape.turn.up.forward.circle.fill")
                                             .resizable()
                                             .frame(width: 30, height: 30)
                                     }
-                                    .frame(width: 200)
+                                    .frame(width: 240)
                                     .foregroundColor(.white)
                                     .padding(.vertical, 12)
                                     .padding(.horizontal, 20)
