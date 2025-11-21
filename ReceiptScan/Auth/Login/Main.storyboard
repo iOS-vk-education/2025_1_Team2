@@ -52,38 +52,38 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет аккаунта?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8f-ti-76x">
-                                        <rect key="frame" x="20" y="313.00000000000006" width="114" height="21"/>
+                                        <rect key="frame" x="30" y="313.00000000000006" width="114" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBq-UD-osn">
-                                        <rect key="frame" x="124" y="306.00000000000006" width="189" height="35"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Зарегистрироваться">
-                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="didTabSignUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xeI-AY-KjW"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вход" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ErC-ew-Zo7">
                                         <rect key="frame" x="134.66666666666666" y="35" width="39" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBq-UD-osn">
+                                        <rect key="frame" x="109" y="306.00000000000006" width="186" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Регистрация  ">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTabSignUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xeI-AY-KjW"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="ErC-ew-Zo7" firstAttribute="top" secondItem="Sgf-k6-GKw" secondAttribute="top" constant="35" id="0eH-Rr-Mqn"/>
-                                    <constraint firstItem="LBq-UD-osn" firstAttribute="leading" secondItem="F8f-ti-76x" secondAttribute="trailing" constant="-10" id="12e-02-3pu"/>
                                     <constraint firstItem="WP1-MR-Rqy" firstAttribute="leading" secondItem="Sgf-k6-GKw" secondAttribute="leading" constant="24" id="BPw-xf-nCH"/>
-                                    <constraint firstAttribute="trailing" secondItem="LBq-UD-osn" secondAttribute="trailing" constant="-5" id="C6w-Er-trk"/>
+                                    <constraint firstAttribute="trailing" secondItem="LBq-UD-osn" secondAttribute="trailing" constant="13" id="C6w-Er-trk"/>
                                     <constraint firstItem="vbh-6F-JaV" firstAttribute="top" secondItem="WP1-MR-Rqy" secondAttribute="bottom" constant="-27" id="ELa-gm-1jP"/>
+                                    <constraint firstItem="LBq-UD-osn" firstAttribute="leading" secondItem="F8f-ti-76x" secondAttribute="trailing" constant="-35" id="Ffb-ne-A9O"/>
                                     <constraint firstAttribute="trailing" secondItem="WP1-MR-Rqy" secondAttribute="trailing" constant="24" id="Hh3-gO-2Tj"/>
                                     <constraint firstItem="WP1-MR-Rqy" firstAttribute="top" secondItem="0hh-s5-kUm" secondAttribute="bottom" constant="30" id="I0q-fo-FXK"/>
-                                    <constraint firstItem="F8f-ti-76x" firstAttribute="leading" secondItem="Sgf-k6-GKw" secondAttribute="leading" constant="20" id="KaU-M1-bDr"/>
+                                    <constraint firstItem="F8f-ti-76x" firstAttribute="leading" secondItem="Sgf-k6-GKw" secondAttribute="leading" constant="30" id="KaU-M1-bDr"/>
                                     <constraint firstItem="LBq-UD-osn" firstAttribute="top" secondItem="sxX-yl-bC7" secondAttribute="bottom" constant="8" symbolic="YES" id="Kgo-4l-rES"/>
                                     <constraint firstItem="0hh-s5-kUm" firstAttribute="leading" secondItem="Sgf-k6-GKw" secondAttribute="leading" constant="24" id="Qez-MJ-BWf"/>
                                     <constraint firstItem="vbh-6F-JaV" firstAttribute="leading" secondItem="WP1-MR-Rqy" secondAttribute="trailing" constant="-36" id="Tde-AS-nd6"/>
