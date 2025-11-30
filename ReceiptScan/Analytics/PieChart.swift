@@ -17,7 +17,7 @@ struct PieChartView: View {
         Chart(data, id: \.name) { name, sales in
             SectorMark(
                 angle: .value("Sales", sales),
-                innerRadius: .ratio(0.0),
+                innerRadius: .ratio(0.75),
                 outerRadius: .ratio(1.0),
                 angularInset: 1
             )
