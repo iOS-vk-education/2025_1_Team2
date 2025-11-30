@@ -69,10 +69,6 @@ struct AnalyticsView: View {
                         
                             .offset(y: -30)
                         ZStack {
-                            Circle()
-                                .fill(Color(hex: "#F3F4F8"))
-                                .frame(width: 250, height: 250)
-                                .offset( y: -28)
                             VStack(spacing: 6){
                                 Text("Неделя")
                                     .font(.title2)
