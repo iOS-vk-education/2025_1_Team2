@@ -1,6 +1,7 @@
 
 
 import SwiftUI
+import FirebaseAuth
 
 struct SettingsView: View {
     
@@ -209,6 +210,22 @@ struct SettingsView: View {
                                             .font(.body)
                                     }
                                     .padding(.horizontal, 20)
+                                    Button(action: {
+                                        do {
+                                            try Auth.auth().signOut()
+                                            print("Успешный выход из Firebase")
+                                            } catch {
+                                                print("Ошибка выхода: \(error.localizedDescription)")
+                                                    }
+                                            }) {
+                                                Text("Выйти из аккаунта")
+                                                    .foregroundColor(.white)
+                                                    .frame(maxWidth: .infinity)
+                                                    .padding()
+                                                    .background(Color.red)
+                                                    .cornerRadius(20)
+                                                }
+                                                .padding(20)
                                 }
                             }
                             
