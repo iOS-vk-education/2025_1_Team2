@@ -1,7 +1,9 @@
-
 import SwiftUI
+import FirebaseAuth
 
 struct MainTabView: View {
+    @State var showAuth = false
+
     var body: some View {
         TabView {
             ManualInputView()
@@ -35,6 +37,19 @@ struct MainTabView: View {
                 }
         }
         .accentColor(.indigo)
+        .onAppear {
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if user != nil {
+                    showAuth = false
+                } else {
+                    showAuth = true
+                }
+            }
+        }
+        .sheet(isPresented: $showAuth) {
+            StoryboardViewController()
+                .interactiveDismissDisabled()
+        }
     }
 }
 
