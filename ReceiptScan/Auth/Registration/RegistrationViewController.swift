@@ -1,4 +1,6 @@
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 import SwiftUI
 
 final class RegistrationViewController: UIViewController {
@@ -152,11 +154,45 @@ final class RegistrationViewController: UIViewController {
     }
 
     @objc private func didTapRegister() {
-        let mainTabView = MainTabView()
-        let hostingController = UIHostingController(rootView: mainTabView)
-        hostingController.modalPresentationStyle = .fullScreen
-        present(hostingController, animated: true)
+        guard let email = emailField.text, !email.isEmpty,
+              let password = passwordField.text, !password.isEmpty,
+              let username = usernameField.text, !username.isEmpty else {
+            print("Ошибка: Не все поля заполены")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
+            if let error = error {
+                print("Ошибка регистрации: \(error.localizedDescription)")
+                return
+            }
+            
+            if let userId = result?.user.uid {
+                let newUser = AppUser(
+                    id: userId,
+                    username: username,
+                    email: email,
+                    dateCreated: Date()
+                )
+                let db = Firestore.firestore()
+                do {
+                    try db.collection("users").document(userId).setData(from: newUser)
+                    print("Пользователь успешко сохранен в базе")
+                    
+                    self?.openMainApp()
+                } catch {
+                    print("Ошибка сохранения данных: \(error)")
+                }
+            }
+        }
     }
+    
+    private func openMainApp() {
+            let mainTabView = MainTabView()
+            let hostingController = UIHostingController(rootView: mainTabView)
+            hostingController.modalPresentationStyle = .fullScreen
+            self.present(hostingController, animated: true)
+        }
     
     @IBAction func didTabSignUp(_ sender: Any) {
         let registrationVC = RegistrationViewController()
