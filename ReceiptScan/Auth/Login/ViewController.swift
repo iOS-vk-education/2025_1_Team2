@@ -1,5 +1,6 @@
 import UIKit
 import SwiftUI
+import FirebaseAuth
 
 class ViewController: UIViewController {
     
@@ -43,10 +44,17 @@ class ViewController: UIViewController {
     }
 
     @IBAction func didTabLogIn(_ sender: Any) {
-        let mainTabView = MainTabView()
-        let hostingController = UIHostingController(rootView: mainTabView)
-        hostingController.modalPresentationStyle = .fullScreen
-        present(hostingController, animated: true)
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            return
+        }
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            if let error = error {
+                print("Ошибка входа: \(error.localizedDescription)")
+                return
+            }
+            self?.dismiss(animated: true)
+        }
     }
     
     @IBAction func didTabSignUp(_ sender: Any) {

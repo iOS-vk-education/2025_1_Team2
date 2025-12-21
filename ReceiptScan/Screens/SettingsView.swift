@@ -6,9 +6,9 @@ import FirebaseAuth
 struct SettingsView: View {
     
     @State private var isAlertPresented = false
-    @State private var username = "fjnrkmcrclk"
+    @State private var username = ""
     @State private var isEditingUsername = false
-    @State private var isLogOut = false
+    @State private var isLogIn = false
     
     var body: some View {
         ZStack {
@@ -59,7 +59,6 @@ struct SettingsView: View {
                     .frame(height: 175)
                     .background(RoundedRectangle(cornerRadius: 20)
                         .fill(Color.white))
-                    //.padding(.horizontal, 20)
                     .alert("Измените имя пользователя", isPresented: $isEditingUsername) {
                         Image("cheburashka")
                             .resizable()
@@ -135,7 +134,7 @@ struct SettingsView: View {
                     Spacer()
                     
                     Button {
-                        isLogOut = true
+                        isLogIn = true
                     } label: {
                         Text("Выйти из аккауната")
                             .foregroundStyle(Color.red)
@@ -143,9 +142,9 @@ struct SettingsView: View {
                     Text("Версия 1.0.0")
                         .foregroundColor(.secondary)
                             
-                }//основной встек
+                }
                 .padding(.horizontal, 20)
-                .alert("Вы уверенны?", isPresented: $isLogOut, actions: {
+                .alert("Вы уверенны?", isPresented: $isLogIn, actions: {
                     Button("Да", role: .destructive) {
                         do {
                             try Auth.auth().signOut()
