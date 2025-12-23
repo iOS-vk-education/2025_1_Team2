@@ -9,6 +9,7 @@ struct ManualInputView: View {
     @State private var isCategoryPickerExpanded = false
     @State private var showAddCategoryAlert = false
     @State private var newCategoryName = ""
+    @State private var selectedDate: Date? = nil
     
    
     @State private var categories: [(name: String, icon: String, color: Color)] = [
@@ -36,6 +37,16 @@ struct ManualInputView: View {
                         .multilineTextAlignment(.center)
                         .keyboardType(.decimalPad)
                         .padding()
+                    
+                    DatePicker("", selection: Binding(
+                        get: { selectedDate ?? Date() },
+                        set: { newValue in selectedDate = newValue }
+                    ),
+                               displayedComponents: [.date]
+                    )
+                    .datePickerStyle(.compact)
+                    .padding(.trailing, 270)
+                    .padding(.vertical, 10)
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Категория")
