@@ -78,6 +78,107 @@ struct AnalyticsView: View {
                             .frame(width: 200, height: 200)
                             
                         }
+                        VStack{
+                            HStack{
+                                Text("Категории расходов")
+                                    .font(.title2)
+                                Spacer()
+                            }
+                            .padding(.horizontal, 5)
+                            
+                            HStack{
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundStyle(Color(hex: "008BFF"))
+                                        .frame(width: 40, height: 40)
+                                    Image(systemName: "fork.knife")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.leading, 10)
+                                VStack(spacing:0){
+                                    Text("Продукты")
+                                        .font(.body)
+                                        .foregroundStyle(.black)
+                                        .padding(.leading, -50)
+                                    Text("33,3% от общего")
+                                        .font(.body)
+                                        .foregroundStyle(.black.opacity(0.6))
+                                        .padding(.leading, 5)
+                                }
+                                Spacer()
+                                Text("22 000 ₽")
+                                    .font(.body)
+                                    .padding(.trailing, 10)
+                                    .foregroundStyle(Color(hex: "008BFF"))
+                            }
+                            .frame(width: 370, height: 65)
+                            .background(.white)
+                            .cornerRadius(13)
+                            
+                            HStack{
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundStyle(Color(hex: "FF8500"))
+                                        .frame(width: 40, height: 40)
+                                    Image(systemName: "bus.fill")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.leading, 10)
+                                VStack(spacing:0){
+                                    Text("Транспорт")
+                                        .font(.body)
+                                        .foregroundStyle(.black)
+                                        .padding(.leading, -50)
+                                    Text("20,9% от общего")
+                                        .font(.body)
+                                        .foregroundStyle(.black.opacity(0.6))
+                                        .padding(.leading, 5)
+                                }
+                                Spacer()
+                                Text("17 547 ₽")
+                                    .font(.body)
+                                    .padding(.trailing, 10)
+                                    .foregroundStyle(Color(hex: "FF8500"))
+                            }
+                            .frame(width: 370, height: 65)
+                            .background(.white)
+                            .cornerRadius(13)
+                            
+                            HStack{
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundStyle(Color(hex: "00C4ED"))
+                                        .frame(width: 40, height: 40)
+                                    Image(systemName: "graduationcap")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.leading, 10)
+                                VStack(spacing:0){
+                                    Text("Образование")
+                                        .font(.body)
+                                        .foregroundStyle(.black)
+                                        .padding(.leading, -20)
+                                    Text("19,7% от общего")
+                                        .font(.body)
+                                        .foregroundStyle(.black.opacity(0.6))
+                                        .padding(.leading, 5)
+                                }
+                                Spacer()
+                                Text("16 207 ₽")
+                                    .font(.body)
+                                    .padding(.trailing, 10)
+                                    .foregroundStyle(Color(hex: "00C4ED"))
+                            }
+                            .frame(width: 370, height: 65)
+                            .background(.white)
+                            .cornerRadius(13)
+                        }
                     }
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
