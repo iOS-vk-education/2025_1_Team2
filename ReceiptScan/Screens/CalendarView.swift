@@ -2,7 +2,8 @@ import SwiftUI
 
 struct CalendaryView: View {
 
-    @State private var selectedDate: Date? = nil
+    @EnvironmentObject var expensesViewModel: ExpensesViewModel
+    @State private var selectedDate: Date? = Date()
     
     var body: some View {
         NavigationStack {
@@ -17,6 +18,37 @@ struct CalendaryView: View {
                                 .padding(.horizontal, 25)
                             Spacer()
                         }
+                        
+                        if expensesViewModel.expenses.isEmpty {
+                            VStack(spacing: 20) {
+                                Text("Расходов пока нет")
+                                    .font(.title2.bold())
+                                    .foregroundColor(.gray)
+                                    .multilineTextAlignment(.center)
+                                
+                                Text("Добавьте первый расход, чтобы увидеть операции в календаре.")
+                                    .font(.body)
+                                    .foregroundColor(.gray)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 32)
+                                
+                                NavigationLink {
+                                    ManualInputView()
+                                } label: {
+                                    Text("Добавить расход")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.indigo)
+                                        .clipShape(RoundedRectangle(cornerRadius: 40))
+                                        .padding(.horizontal, 40)
+                                }
+                            }
+                            .padding(.top, 40)
+                            
+                            Spacer()
+                        } else {
                         ZStack{
                             DatePicker("", selection: Binding(
                                 get: { selectedDate ?? Date() },
@@ -35,138 +67,72 @@ struct CalendaryView: View {
                             
                         }
                         
-                        if selectedDate != nil {
-                            VStack() {
-                                HStack(){
-                                    Spacer()
-                                    Text("-4 250 ₽")
-                                        .font(.body)
-                                        .padding(.horizontal, 15)
-                                }
-                                HStack{
-                                    Spacer()
-                                    Text("24 октября, Пятница")
-                                        .font(.body)
-                                        .padding(.horizontal, -15)
-                                }
+                        if let selectedDate {
+                            let expensesForDay = expensesViewModel.expenses.filter {
+                                Calendar.current.isDate($0.date, inSameDayAs: selectedDate)
+                            }
+                            
+                            if !expensesForDay.isEmpty {
+                                let total = expensesForDay.reduce(0) { $0 + $1.amount }
                                 
-                                .padding(.horizontal, 30)
-                                VStack (spacing:10){
-                                    HStack{
-                                        NavigationLink {
-                                            DataInfoView()
-                                        } label: {
-                                            HStack{
-                                                ZStack{
-                                                    RoundedRectangle(cornerRadius: 10)
-                                                        .foregroundStyle(Color(hex: "008BFF"))
-                                                        .frame(width: 40, height: 40)
-                                                    Image(systemName: "fork.knife")
-                                                        .resizable()
-                                                        .frame(width: 20, height: 20)
-                                                        .foregroundStyle(.white)
-                                                }
-                                                .padding(.leading, 10)
-                                                VStack(spacing:0){
-                                                    Text("Пятерочка")
-                                                        .font(.body)
-                                                        .foregroundStyle(.black)
-                                                        .padding(.leading, 5)
-                                                    Text("Продукты")
-                                                        .font(.body)
-                                                        .foregroundStyle(.black.opacity(0.6))
-                                                }
-                                                Spacer()
-                                                Text("-1 250 ₽")
-                                                    .font(.body)
-                                                    .padding(.trailing, 10)
-                                                    .foregroundStyle(.black)
-                                            }
-                                            .frame(width: 370, height: 65)
-                                            .background(.white)
-                                            .cornerRadius(13)
-                                        }
+                                VStack {
+                                    HStack(){
+                                        Spacer()
+                                        Text(String(format: "-%.2f ₽", total))
+                                            .font(.body)
+                                            .padding(.horizontal, 15)
                                     }
                                     HStack{
-                                        NavigationLink {
-                                            DataInfoView()
-                                        } label: {
-                                            HStack{
-                                                ZStack{
-                                                    RoundedRectangle(cornerRadius: 10)
-                                                        .foregroundStyle(Color(hex: "FF8500"))
-                                                        .frame(width: 40, height: 40)
-                                                    Image(systemName: "bus.fill")
-                                                        .resizable()
-                                                        .frame(width: 20, height: 20)
-                                                        .foregroundStyle(.white)
-                                                }
-                                                .padding(.leading, 10)
-                                                VStack(spacing:0){
-                                                    Text("Яндекс такси")
-                                                        .font(.body)
-                                                        .foregroundStyle(.black)
-                                                        .padding(.leading, 5)
-                                                    Text("Транспорт")
-                                                        .font(.body)
-                                                        .foregroundStyle(.black.opacity(0.6))
-                                                        .padding(.leading, -18)
-                                                }
-                                                Spacer()
-                                                Text("450 ₽")
-                                                    .font(.body)
-                                                    .padding(.trailing, 10)
-                                                    .foregroundStyle(.black)
-                                            }
-                                            .frame(width: 370, height: 65)
-                                            .background(.white)
-                                            .cornerRadius(13)
-                                        }
+                                        Spacer()
+                                        Text(formattedDate(selectedDate))
+                                            .font(.body)
+                                            .padding(.horizontal, -15)
                                     }
-                                    HStack{
-                                        NavigationLink {
-                                            DataInfoView()
-                                        } label: {
-                                            HStack{
-                                                ZStack{
-                                                    RoundedRectangle(cornerRadius: 10)
-                                                        .foregroundStyle(Color(hex: "00C4ED"))
-                                                        .frame(width: 40, height: 40)
-                                                    Image(systemName: "graduationcap")
-                                                        .resizable()
-                                                        .frame(width: 25, height: 25)
-                                                        .foregroundStyle(.white)
-                                                }
-                                                .padding(.leading, 10)
-                                                VStack(spacing:0){
-                                                    Text("Школково")
+                                    
+                                    .padding(.horizontal, 30)
+                                    VStack (spacing:10){
+                                        ForEach(expensesForDay) { expense in
+                                            NavigationLink {
+                                                DataInfoView(expense: expense)
+                                            } label: {
+                                                HStack{
+                                                    ZStack{
+                                                        RoundedRectangle(cornerRadius: 10)
+                                                            .foregroundStyle(Color(hex: "008BFF"))
+                                                            .frame(width: 40, height: 40)
+                                                        Image(systemName: "folder.fill")
+                                                            .resizable()
+                                                            .frame(width: 20, height: 20)
+                                                            .foregroundStyle(.white)
+                                                    }
+                                                    .padding(.leading, 10)
+                                                    VStack(spacing:0){
+                                                        Text(expense.storeName.isEmpty ? "Магазин" : expense.storeName)
+                                                            .font(.body)
+                                                            .foregroundStyle(.black)
+                                                            .padding(.leading, 5)
+                                                        Text(expense.category)
+                                                            .font(.body)
+                                                            .foregroundStyle(.black.opacity(0.6))
+                                                    }
+                                                    Spacer()
+                                                    Text(String(format: "-%.2f ₽", expense.amount))
                                                         .font(.body)
+                                                        .padding(.trailing, 10)
                                                         .foregroundStyle(.black)
-                                                        .padding(.leading, -20)
-                                                    Text("Образование")
-                                                        .font(.body)
-                                                        .foregroundStyle(.black.opacity(0.6))
-                                                        .padding(.leading, 5)
                                                 }
-                                                Spacer()
-                                                Text("2 550 ₽")
-                                                    .font(.body)
-                                                    .padding(.trailing, 10)
-                                                    .foregroundStyle(.black)
+                                                .frame(width: 370, height: 65)
+                                                .background(.white)
+                                                .cornerRadius(13)
                                             }
-                                            .frame(width: 370, height: 65)
-                                            .background(.white)
-                                            .cornerRadius(13)
                                         }
                                     }
                                 }
-                                
-                                
-                                
                             }
                         }
                         
                         Spacer()
+                    }
                     }
                 }
             }
@@ -174,8 +140,15 @@ struct CalendaryView: View {
     }
 }
 
-
-
+extension CalendaryView {
+    private func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
+    }
+}
 
 #Preview {
     CalendaryView()
