@@ -12,7 +12,9 @@ struct MainTabView: View {
                     Image(systemName: "plus")
                 }
             
-            AnalyticsView()
+            NavigationStack {
+                AnalyticsView()
+            }
                 .tag(1)
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis.ascending")

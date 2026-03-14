@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct DataInfoView: View {
+    @EnvironmentObject var expensesViewModel: ExpensesViewModel
+    
+    let expense: Expense
+    
     @State private var isAlertPresented = false
     @State private var isShow = true
     var body: some View {
@@ -34,42 +38,15 @@ struct DataInfoView: View {
                                         .frame(width: 30, height: 30)
                                         .foregroundStyle(.white)
                                 }
-                                Text("Пятерочка")
+                                Text(expense.storeName.isEmpty ? "Магазин" : expense.storeName)
                                     .font(.title2)
                                     .foregroundStyle(.primary)
-                                Text("24 октября 2025")
+                                Text(formattedDate(expense.date))
                                     .font(.title3)
                                     .foregroundStyle(.primary)
                                     .foregroundStyle(.black.opacity(0.6))
                                 Divider()
                                     .padding(.horizontal, 40)
-                                HStack{
-                                    Text("Кофе в эернах 1 кг")
-                                        .font(.body)
-                                    Spacer()
-                                    Text("1 024,86 ₽")
-                                }
-                                .padding(.horizontal, 40)
-                                .padding(.vertical, 10)
-                                
-                                HStack{
-                                    Text("Картофель Эконом")
-                                        .font(.body)
-                                    Spacer()
-                                    Text("120,44 ₽")
-                                }
-                                .padding(.horizontal, 40)
-                                .padding(.vertical, 10)
-                                
-                                HStack{
-                                    Text("Капуста китайская")
-                                        .font(.body)
-                                    Spacer()
-                                    Text("104,57 ₽")
-                                }
-                                .padding(.horizontal, 40)
-                                .padding(.vertical, 10)
-                                
                                 Divider()
                                     .padding(.horizontal, 40)
                                 HStack{
@@ -77,7 +54,7 @@ struct DataInfoView: View {
                                         .font(.title)
                                         .foregroundStyle(.black.opacity(0.6))
                                     Spacer()
-                                    Text("1250 ₽")
+                                    Text(String(format: "%.2f ₽", expense.amount))
                                         .font(.title)
                                 }
                                 .padding(.horizontal, 40)
@@ -92,7 +69,9 @@ struct DataInfoView: View {
                                 }
                                 .alert("Эта транзакция будет удалена. Восстановить его будет невозможно. Продолжить?", isPresented: $isAlertPresented, actions: {
                                     Button("Да", role: .destructive) {
-                                        isShow = false
+                                        expensesViewModel.deleteExpense(expense) { _ in
+                                            isShow = false
+                                        }
                                     }
                                     Button("Нет", role: .cancel) {
                                     }
@@ -108,6 +87,16 @@ struct DataInfoView: View {
     }
 }
 
+extension DataInfoView {
+    private func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
+    }
+}
+
 #Preview {
-    DataInfoView()
+    DataInfoView(expense: Expense(id: "1", userId: "user", amount: 1250, category: "Продукты", storeName: "Магазин", date: Date(), createdAt: Date()))
+        .environmentObject(ExpensesViewModel())
 }

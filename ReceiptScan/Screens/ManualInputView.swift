@@ -3,6 +3,8 @@ import SwiftUI
 
 struct ManualInputView: View {
     
+    @EnvironmentObject var expensesViewModel: ExpensesViewModel
+    
     @State var storename: String = ""
     @State var productcategory: String = "Категория"
     @State var price: String = ""
@@ -10,6 +12,9 @@ struct ManualInputView: View {
     @State private var showAddCategoryAlert = false
     @State private var newCategoryName = ""
     @State private var selectedDate: Date? = nil
+    @State private var isSaving: Bool = false
+    @State private var showErrorAlert: Bool = false
+    @State private var errorMessage: String = ""
     
    
     @State private var categories: [(name: String, icon: String, color: Color)] = [
@@ -160,13 +165,13 @@ struct ManualInputView: View {
                         .padding(15)
                     
                     Button {
-                        print("Сохранено")
+                        saveExpense()
                     } label: {
                         Text("Сохранить")
                             .font(.title)
                             .foregroundColor(.white)
                             .padding()
-                            .background(Color.indigo)
+                            .background(isSaving ? Color.indigo.opacity(0.5) : Color.indigo)
                             .clipShape(RoundedRectangle(cornerRadius: 40))
                             .padding()
                         
@@ -190,7 +195,13 @@ struct ManualInputView: View {
                 addNewCategory()
             }
         }
+        .alert("Ошибка", isPresented: $showErrorAlert) {
+            Button("Ок", role: .cancel) { }
+        } message: {
+            Text(errorMessage)
+        }
     }
+    
     private func addNewCategory() {
         let trimmedName = newCategoryName.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -215,6 +226,44 @@ struct ManualInputView: View {
         isCategoryPickerExpanded = false
         
         newCategoryName = ""
+    }
+    
+    private func saveExpense() {
+        guard !isSaving else { return }
+        
+        let trimmedPrice = price
+            .replacingOccurrences(of: " ", with: "")
+            .replacingOccurrences(of: ",", with: ".")
+        
+        guard let amount = Double(trimmedPrice), amount > 0 else {
+            errorMessage = "Введите корректную сумму расхода."
+            showErrorAlert = true
+            return
+        }
+        
+        guard productcategory != "Категория" else {
+            errorMessage = "Выберите категорию расхода."
+            showErrorAlert = true
+            return
+        }
+        
+        let dateToSave = selectedDate ?? Date()
+        let store = storename.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        isSaving = true
+        expensesViewModel.addExpense(amount: amount, category: productcategory, storeName: store, date: dateToSave) { error in
+            isSaving = false
+            
+            if let error = error {
+                errorMessage = error.localizedDescription
+                showErrorAlert = true
+            } else {
+                price = ""
+                storename = ""
+                productcategory = "Категория"
+                selectedDate = nil
+            }
+        }
     }
         
 }

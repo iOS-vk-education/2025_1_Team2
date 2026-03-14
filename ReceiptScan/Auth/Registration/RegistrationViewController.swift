@@ -163,7 +163,9 @@ final class RegistrationViewController: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
             if let error = error {
+                let nsError = error as NSError
                 print("Ошибка регистрации: \(error.localizedDescription)")
+                print("Полная ошибка Firebase: \(nsError.domain) code: \(nsError.code) userInfo: \(nsError.userInfo)")
                 return
             }
             
@@ -188,11 +190,16 @@ final class RegistrationViewController: UIViewController {
     }
     
     private func openMainApp() {
-            let mainTabView = MainTabView()
-            let hostingController = UIHostingController(rootView: mainTabView)
-            hostingController.modalPresentationStyle = .fullScreen
-            self.present(hostingController, animated: true)
-        }
+        let viewModel = ExpensesViewModel()
+        viewModel.startListening()
+        
+        let mainTabView = MainTabView()
+            .environmentObject(viewModel)
+        
+        let hostingController = UIHostingController(rootView: mainTabView)
+        hostingController.modalPresentationStyle = .fullScreen
+        self.present(hostingController, animated: true)
+    }
     
     @IBAction func didTabSignUp(_ sender: Any) {
         let registrationVC = RegistrationViewController()
